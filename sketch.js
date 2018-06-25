@@ -2,23 +2,30 @@ var margin = 50;
 var blockDelta = 50
 let player;
 let edges = [];
-let moveHistory = [[50,50]]
+var score = 0
 
+moveHistory = [[margin,margin]]
 
 function setup() {
+
+  scoreElem = createDiv('Score =');
+  scoreElem.position(20, 20);
+  scoreElem.id = 'score';
+  scoreElem.style('color', 'black');
+
 	createCanvas(300, 300);
-	background(0);
 	player = new gamePiece();
 }
 
 function draw() {
-	background(220);
+	background("white");
 	// line(x1, y1, x2, y2)
 	makeGrid();
 
 	player.show();
 	//Make edges
 	makeEdges()
+	scoreElem.html('Score = ' + score);
 }
 
 
@@ -64,11 +71,15 @@ function makeEdges(){
 function keyPressed() {
   if (keyCode === UP_ARROW) {
     player.dir(0, -1);
+		score /= 2;
   } else if (keyCode === DOWN_ARROW) {
     player.dir(0, 1);
+		score *= 2;
   } else if (keyCode === RIGHT_ARROW) {
     player.dir(1, 0);
+		score += 2;
   } else if (keyCode === LEFT_ARROW) {
     player.dir(-1, 0);
+		score -= 2;
   }
 }
