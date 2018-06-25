@@ -2,7 +2,7 @@ var margin = 50;
 var blockDelta = 50
 let player;
 let edges = [];
-let moveHistory = []
+let moveHistory = [[50,50]]
 
 
 function setup() {
@@ -15,15 +15,17 @@ function draw() {
 	background(220);
 	// line(x1, y1, x2, y2)
 	makeGrid();
+
 	player.show();
+	//Make edges
+	makeEdges()
 }
 
-function mousePressed() {
-	player.clicked()
-}
 
 function makeGrid() {
 	for (var x=margin; x<= width - margin; x += blockDelta) {
+		stroke("black");
+		strokeWeight(1);
 		line(50,x,250,x)
 		line(x,50, x,250);
 	}
@@ -36,60 +38,37 @@ class gamePiece{
 		this.radius = 25,
 		this.r = 255
 	}
+	dir(sigma1,sigma2) {
+		this.x += sigma1*blockDelta
+		this.y += sigma2*blockDelta
+
+    this.x = constrain(this.x, margin, width - margin);
+    this.y = constrain(this.y, margin, height - margin);
+		append(moveHistory, [this.x, this.y])
+	}
 	show() {
 		fill(this.r,0,0);
 		ellipse(this.x, this.y, this.radius, this.radius);
 	}
-	moveup() {
-		if (this.y > margin){
-			this.y -= blockDelta
-		}
-		return true
-	}
-	movedown() {
-		if (this.y < width - margin) {
-			this.y += blockDelta
-		}
-		return true
-	}
-	moveleft() {
-		if (this.x > margin){
-			this.x -= blockDelta
-		}
-		return true
-	}
-	moveright() {
-		if (this.x < width - margin){
-			this.x += blockDelta
-		}
-		return true
-	}
-	storeMove() {
-		moveHistory.append(this.x, this.y)
-	}
 }
 
-class Edge{
-	constructor() {
-		x1 = player.x,
-		y1 = player.y,
-		x2 = player.x,
-		y2 = player.y
-	}
-	makeEdge() {
-
+function makeEdges(){
+	for (let i=0;i<moveHistory.length-1;i++){
+		stroke("red");
+		strokeWeight(4);
+		line(moveHistory[i][0],moveHistory[i][1],moveHistory[i+1][0],moveHistory[i+1][1])
 	}
 }
 
 
 function keyPressed() {
   if (keyCode === UP_ARROW) {
-    player.moveup();
+    player.dir(0, -1);
   } else if (keyCode === DOWN_ARROW) {
-    player.movedown();
+    player.dir(0, 1);
   } else if (keyCode === RIGHT_ARROW) {
-    player.moveright();
+    player.dir(1, 0);
   } else if (keyCode === LEFT_ARROW) {
-    player.moveleft();
+    player.dir(-1, 0);
   }
 }
