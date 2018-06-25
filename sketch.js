@@ -1,17 +1,23 @@
 var margin = 50;
-var blockDelta = 50
+var blockDelta = 50;
 let player;
 let edges = [];
-var score = 0
+var score = 0;
+let path = "";
 
 moveHistory = [[margin,margin]]
 
 function setup() {
 
-  scoreElem = createDiv('Score =');
+  scoreElem = createDiv('Score = ');
   scoreElem.position(20, 20);
   scoreElem.id = 'score';
   scoreElem.style('color', 'black');
+
+  pathElem = createDiv('Path:');
+  pathElem.position(45,45);
+  pathElem.id = 'path';
+  pathElem.style('color', 'black');
 
 	createCanvas(300, 300);
 	player = new gamePiece();
@@ -26,6 +32,7 @@ function draw() {
 	//Make edges
 	makeEdges()
 	scoreElem.html('Score = ' + score);
+  pathElem.html('Path:' + path)
 }
 
 
@@ -73,14 +80,18 @@ function keyPressed() {
   if ((keyCode === UP_ARROW) && (player.y-1>=margin)) {
     player.dir(0, -1);
 		score /= 2;
+    path = path + 'N';
   } else if ((keyCode === DOWN_ARROW) && (player.y+1<=height-margin)) {
     player.dir(0, 1);
 		score *= 2;
+    path = path + 'S';
   } else if ((keyCode === RIGHT_ARROW) && (player.x+1<=width-margin)) {
     player.dir(1, 0);
 		score += 2;
+    path = path + 'E';
   } else if ((keyCode === LEFT_ARROW) && (player.x-1>=margin)) {
     player.dir(-1, 0);
 		score -= 2;
+    path = path + 'W';
   }
 }
