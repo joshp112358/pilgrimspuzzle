@@ -52,6 +52,7 @@ class gamePiece{
     this.x = constrain(this.x, margin, width - margin);
     this.y = constrain(this.y, margin, height - margin);
 		append(moveHistory, [this.x, this.y])
+
 	}
 	show() {
 		fill(this.r,0,0);
@@ -69,16 +70,16 @@ function makeEdges(){
 
 
 function keyPressed() {
-  if (keyCode === UP_ARROW) {
+  if ((keyCode === UP_ARROW) && (player.y-1>=margin)) {
     player.dir(0, -1);
 		score /= 2;
-  } else if (keyCode === DOWN_ARROW) {
+  } else if ((keyCode === DOWN_ARROW) && (player.y+1<=height-margin)) {
     player.dir(0, 1);
 		score *= 2;
-  } else if (keyCode === RIGHT_ARROW) {
+  } else if ((keyCode === RIGHT_ARROW) && (player.x+1<=width-margin)) {
     player.dir(1, 0);
 		score += 2;
-  } else if (keyCode === LEFT_ARROW) {
+  } else if ((keyCode === LEFT_ARROW) && (player.x-1>=margin)) {
     player.dir(-1, 0);
 		score -= 2;
   }
