@@ -1,0 +1,15 @@
+<style>
+  body {
+    margin:0;
+    padding:0;
+    overflow: hidden;
+  }
+  canvas {
+    margin:100;
+    padding:100;
+  }
+
+  p {
+    margin-left: 400px;
+  }
+</style>
