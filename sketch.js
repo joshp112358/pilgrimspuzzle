@@ -9,15 +9,18 @@ moveHistory = [[margin,margin]]
 
 function setup() {
 
-  scoreElem = createDiv('Score = ');
-  scoreElem.position(20, 20);
+  scoreElem = createDiv();
+  scoreElem.position(margin, 2);
   scoreElem.id = 'score';
   scoreElem.style('color', 'black');
 
-  pathElem = createDiv('Path:');
-  pathElem.position(20,45);
-  pathElem.id = 'path';
+  pathElem = createDiv();
+  pathElem.position(margin, 15);
   pathElem.style('color', 'black');
+
+  lengthOfPath = createDiv();
+  lengthOfPath.position(margin, 28);
+  lengthOfPath.style('color', 'black');
 
 	createCanvas(300, 300);
 	player = new gamePiece();
@@ -32,7 +35,8 @@ function draw() {
 	//Make edges
 	makeEdges()
 	scoreElem.html('Score = ' + score);
-  pathElem.html('Path:' + path)
+  pathElem.html('Path = ' + path);
+  lengthOfPath.html('Path Length = ' + path.length);
 }
 
 
