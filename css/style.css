@@ -5,11 +5,8 @@
     overflow: hidden;
   }
   canvas {
-    margin:100;
+    margin:200;
     padding:100;
   }
 
-  p {
-    margin-left: 400px;
-  }
 </style>

@@ -1,11 +1,13 @@
-var margin = 50;
-var blockDelta = 50;
+var margin = 80;
+var blockDelta = 80;
 let player;
 
 var score = 0;
 let path = "";
 
-moveHistory = [[margin,margin]]
+let moveHistory = [[margin,margin]];
+
+var instructions = "Instructions: Use arrow keys to move dot. Press c to clear.";
 
 function setup() {
 
@@ -15,14 +17,14 @@ function setup() {
   scoreElem.style('color', 'black');
 
   pathElem = createDiv();
-  pathElem.position(margin, 15);
+  pathElem.position(margin, 22);
   pathElem.style('color', 'black');
 
   lengthOfPath = createDiv();
-  lengthOfPath.position(margin, 28);
+  lengthOfPath.position(margin, 42);
   lengthOfPath.style('color', 'black');
 
-	createCanvas(300, 300);
+	createCanvas(6*margin, 6*margin);
 	player = new gamePiece();
 }
 
@@ -30,7 +32,10 @@ function draw() {
 	background("white");
 	// line(x1, y1, x2, y2)
 	makeGrid();
-
+  fill(0,0,0)
+	ellipse(width-margin, height-margin, 10, 10);
+  text('End', width-margin+5, height-margin);
+  text(instructions, margin, 65)
 	player.show();
 	//Make edges
 	makeEdges()
@@ -44,8 +49,8 @@ function makeGrid() {
 	for (var x=margin; x<= width - margin; x += blockDelta) {
 		stroke("black");
 		strokeWeight(1);
-		line(50,x,250,x)
-		line(x,50, x,250);
+		line(margin,x,width-margin,x);
+		line(x,margin, x,width-margin);
 	}
 }
 
@@ -53,7 +58,7 @@ class gamePiece{
 	constructor() {
 		this.x = margin,
 		this.y = margin,
-		this.radius = 25,
+		this.radius = 17,
 		this.r = 255
 	}
 	dir(sigma1,sigma2) {
